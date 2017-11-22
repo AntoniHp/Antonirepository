@@ -1,0 +1,65 @@
+#include <iostream>
+#include <stdio.h>
+#include <cmath>
+#include <conio.h>
+#include <fstream>
+
+using namespace std;
+
+float r,c,d,Cs1,Cs2;
+const double pi = 3.1415926536;
+
+float F, S1, S2, a1, a2, a, u0, E0, R, E, h, ep;
+double  w1, w2, wm, r0, L1, L2, M, P,
+double Cmut, C1, C2, leg1, leg2, leg3;
+
+int main()
+{
+    cout << "Podaj parametry rezonatora: " << endl;
+    cout << "Podaj szerokosc pierscienia wewnetrznego r= "; cin >> r; // mm pow(10,-3)
+    cout << endl;
+    cout << "Podaj szerokosc pierwszego pierscienia c= "; cin >> c; // mm
+    cout << endl;
+    cout << "Podaj odleglosc miedzy pierwszym a drugim pierscieniem d= "; cin >> d; // mm
+    cout << endl;
+    cout << "Podaj wartosc pojemnosci zewnetrznej kondensatora Cs1= "; cin >> Cs1; // mm
+    cout << endl;
+
+    Cs1=Cs2;                                // pojemnoœæ zewnêtrzna
+    a1=r+d+c/2;                             // wartoœæ usredniona promienia pierœcienia zewnetrznego
+    a2=r+c/2;                               // wartoœæ usredniona promienia pierœcienia wewnêtrznego
+    a=r+c+d/2;                              // uœrednione wartoœci promieni
+    S1=pi*a1*a1;                            // pole przekroju pierscienia zewnetrznego
+    S2=pi*a2*a2;                            // pole przekroju pierscienia wewnetrznego
+    w1=1/C1*L1;                             // czêstotliwoœæ drgañ w³asnych pierœcienia zewnetrznego
+    w2=1/C2*L2;                             // czest drgan wlasnych pier wewnetrznego
+    // wm=1/sqrt (C1*C2*(L1*L2-M*M));          // czestotliwosc drgan wlasnych ukladu pierscieni
+    r0=c/4;                                 // promien przekroju rzeczywistego pierscienia
+    R=a1*a2;
+    leg1=8*a1/r0;
+    leg2=8*a2/r0;
+
+    L1=u0*R*(log10( leg1)-2);              // indukcyjnosc pierscienia zewnetrznego
+    L2=u0*R*(log10( leg2)-2);              // indukcyjnosc pierscienia wewnetrznego
+    P=pi*a;
+    // Cmut=(2/pi)*E*E0*acos(h*(2*c/d));     // Pojemnosc wzajemna
+    C1=Cs1+(Cmut/2);                        // Pojemnosc miedzy szczelinami pierscienia zewnetrznego
+    C2=Cs2+(Cmut/2);                        // Pojemnosc miedzy szczelinami pierscienia wewnetrznego
+
+    // ep= 0.2;                                      // maly parametr wystepujacy we wzajemnej impedancji
+    // leg3=4/ep;
+    // M=u0*a1*(1-ep*(log10(leg3)-2+ep));            // Wspolna impedancja
+
+    u0=12,566370614*pow(10, -7);                     // przenikalnoœæ magnetyczna w pró¿ni
+    E0=8,854187817*pow(10, -12);                     // przenikalnoœæ elektryczna w pró¿ni
+
+
+    // F=w^2*u0^2/L1*L2-M^2; // 1 czêsc wzoru amm
+    // am1=S1*(S2*w^2*M^2-S1*L2*(w^2-w2^2))/((w^2-w_^2)*(w^2-w+^2))^2;      // 2 czesc wzoru na amm
+    // am2=S2*(S1*w^2*M^2-S2*L1*(w^2-w1^2)*(w^2-w_^2)*(w^2-w+^2)-jk/((w^2-w_^2)*(w^2-w+^2))^2; // 3 czesc wzoru na amm
+
+    // amm=F*am1+am2;
+
+    getchar();
+    return 0;
+}
